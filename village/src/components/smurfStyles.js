@@ -31,10 +31,33 @@ export const SmurfCard = styled.div`
 display:flex;
 justify-content: space-evenly;
 max-width:120rem;
-margin-top:3rem;
+margin-top:10rem;
     .smurf{
         max-width:400rem;
         padding:.5rem;
     }
 
 `
+
+export const Modal = styled.div`
+    position:fixed;
+    top:0;
+    left:0;
+    height:100vh;
+    width:100vw;
+    background:rgba(000,000,000,.3);
+    z-index:0;
+    display:none;
+    &.active{
+        display:inline-block;
+    }
+
+    form{
+        background:#fff;
+        margin:50% auto;
+        max-width:40rem;
+        width:90%;
+        display:flex;
+        flex-direction:column;
+    }
+`;

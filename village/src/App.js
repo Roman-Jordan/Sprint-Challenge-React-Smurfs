@@ -1,10 +1,14 @@
+//Dependencies
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
+import axios from 'axios';
+//Components
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
+//styles
 import {GlobalStyle} from './Styles';
+import {Modal} from './components/smurfStyles'
 import {Header} from './components/smurfStyles';
-import axios from 'axios';
 
 
 class App extends Component {
@@ -37,14 +41,25 @@ class App extends Component {
   }
 
   removeSmurf = smurf =>{
+    smurf = smurf.currentTarget.dataset.set;
+    console.log(smurf)
     axios
-      .delete(`http://localhost:3333/smurfs`,smurf)
+      .delete(`http://localhost:3333/smurfs/${smurf}`)
       .then(res => this.setState({smurfs:res.data}))
       .catch(err => (console.log(err)))
   }
 
   
-
+  className = '';
+  
+  toggleModal = e =>{
+    
+    let location = e.currentTarget.getAttribute('name');
+    location = e.target.classList.contains('active') ? '':location;
+    e.target.classList.toggle('active');
+    this.className = e.target.classList.contains('active') ? 'active':'';
+    this.props.history.push(location);
+  }
 
 
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -57,10 +72,14 @@ class App extends Component {
         <GlobalStyle/>
         <Header>
           <h1>Smurf Village</h1>
-          <button>+</button>
+          <button name="addSmurf" onClick={this.toggleModal}>+</button>
         </Header>
-        <Route render={props => <SmurfForm addSmurf={this.addSmurf}/>}/>
-        <Route render={props => <Smurfs smurfs={this.state.smurfs} />}/>
+        
+        <Route render={props => <Smurfs smurfs={this.state.smurfs} toggle={this.removeSmurf}/>}/>
+        <Modal className={this.className}>
+          <Route path='/addSmurf' render={props => <SmurfForm addSmurf={this.addSmurf}/>}/>
+          <Route path='/removeSmurf' render={props => <SmurfForm updateSmurf={this.updateSmurf}/>}/>
+        </Modal>
       </div>
     );
   }
