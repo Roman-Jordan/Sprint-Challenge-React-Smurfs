@@ -15,6 +15,7 @@ class App extends Component {
   
   state = {
       smurfs: [],
+   
   };
   
 
@@ -35,7 +36,7 @@ class App extends Component {
 
   updateSmurf = smurf =>{
     axios
-      .put(`http://localhost:3333/smurfs`,smurf)
+      .put(`http://localhost:3333/smurfs/${smurf}`,smurf)
       .then(res => this.setState({smurfs:res.data}))
       .catch(err => (console.log(err)))
   }
@@ -53,7 +54,6 @@ class App extends Component {
   className = '';
   
   toggleModal = e =>{
-    
     let location = e.currentTarget.getAttribute('name');
     location = e.target.classList.contains('active') ? '':location;
     e.target.classList.toggle('active');
@@ -78,7 +78,7 @@ class App extends Component {
         <Route render={props => <Smurfs smurfs={this.state.smurfs} toggle={this.removeSmurf}/>}/>
         <Modal className={this.className}>
           <Route path='/addSmurf' render={props => <SmurfForm addSmurf={this.addSmurf}/>}/>
-          <Route path='/removeSmurf' render={props => <SmurfForm updateSmurf={this.updateSmurf}/>}/>
+          <Route path='/updateSmurf' render={props => <SmurfForm smurfs={this.state.smurfs} updateSmurf={this.updateSmurf}/>}/>
         </Modal>
       </div>
     );

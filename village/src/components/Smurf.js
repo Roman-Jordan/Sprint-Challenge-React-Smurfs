@@ -9,6 +9,7 @@ const Smurf = props => {
       <p>{props.height} tall</p>
       <p>{props.age} smurf years old</p>
       <button data-set={props.id}  onClick={props.toggle}>Remove Smurf</button>
+      <button data-set={props.id}  onClick={props.toggle}>Update Smurf</button>
     </div>
   );
 };

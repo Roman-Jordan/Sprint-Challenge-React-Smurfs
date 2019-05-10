@@ -5,7 +5,6 @@ import Smurf from './Smurf';
 class Smurfs extends Component {
   render() {
     return (
- 
       <SmurfCard>
             {this.props.smurfs.map(smurf => {
               return (
