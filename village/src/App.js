@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
-import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
+import {GlobalStyle} from './Styles';
+import {Header} from './components/smurfStyles';
 import axios from 'axios';
+
 
 class App extends Component {
   
@@ -52,6 +54,11 @@ class App extends Component {
     console.log(this.state.smurfs)
     return (
       <div className="App">
+        <GlobalStyle/>
+        <Header>
+          <h1>Smurf Village</h1>
+          <button>+</button>
+        </Header>
         <Route render={props => <SmurfForm addSmurf={this.addSmurf}/>}/>
         <Route render={props => <Smurfs smurfs={this.state.smurfs} />}/>
       </div>
